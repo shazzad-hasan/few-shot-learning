@@ -73,9 +73,9 @@ class nWayOneShotValidSet(Dataset):
         return self.data_size 
   
     def __getitem__(self, idx):
-        category = random.choice(categories)
+        category = random.choice(self.categories)
         character = random.choice(category[1])
-        img_dir = root_dir + category[0] + "/" + character
+        img_dir = self.root_dir + category[0] + "/" + character
         img_name = random.choice(os.listdir(img_dir)) 
         main_img = Image.open(img_dir + "/" + img_name)
         if self.transform:
@@ -91,11 +91,11 @@ class nWayOneShotValidSet(Dataset):
             if i == label:
                 test_img_name = random.choice(os.listdir(img_dir))
             else:
-                test_category = random.choice(categories)
+                test_category = random.choice(self.categories)
                 test_character = random.choice(test_category[1])
-                test_img_dir = root_dir + test_category[0] + "/" + test_character 
+                test_img_dir = self.root_dir + test_category[0] + "/" + test_character 
                 while test_img_dir == img_dir:
-                    test_img_dir = root_dir + test_category[0] + "/" + test_character 
+                    test_img_dir = self.root_dir + test_category[0] + "/" + test_character 
                 test_img_name = random.choice(os.listdir(test_img_dir))
                 
             test_img = Image.open(test_img_dir + "/" + test_img_name)
