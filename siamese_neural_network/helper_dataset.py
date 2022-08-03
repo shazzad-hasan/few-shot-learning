@@ -15,7 +15,7 @@ from PIL import Image
 class OmniglotDataset(Dataset):
     
     def __init__(self, categories, root_dir, data_size, transform=None):
-        self.catagories = categories
+        self.categories = categories
         self.root_dir = root_dir 
         self.transform = transform
         self.data_size = data_size 
@@ -105,37 +105,3 @@ class nWayOneShotValidSet(Dataset):
             test_set.append(test_img)
 
         return main_img, test_set, label 
-
-
-
-def dataloader_omniglot(train_size,
-                        valid_pct,
-                        test_size,
-                        batch_size,
-                        n_way,
-                        num_workers,
-                        transform=None,
-                        valid_size=None):
-    
-    train_data = datasets.Omniglot(root="./data", download=True, transform=None)
-    test_data = datasets.Omniglot(root="./data", background = False, download=True, transform=None) 
-    
-    root_dir = '/data/omniglot-py/images_evaluation/'
-    categories = [[folder, os.listdir(root_dir + folder)] for folder in os.listdir(root_dir)  if not folder.startswith('.') ]
-    
-    valid_size = int(valid_pct * train_size)
-    train_size = train_size - valid_size
-    
-    if transform is None:
-        transform = transforms.ToTensor()
-        
-    omniglot_data = OmniglotDataset(categories, root_dir, train_size, transform)
-    train_data, valid_data = random_split(omniglot_data, [train_size, valid_size]) 
-    
-    train_loader = DataLoader(train_data, batch_size=batch_size, num_workers=num_workers)
-    valid_loader = DataLoader(valid_data, batch_size=batch_size, num_workers=num_workers)
-    
-    test_data = nWayOneShotValidSet(categories, root_dir, test_size, n_way, transform)
-    test_loader = DataLoader(test_data, batch_size=batch_size, num_workers=num_workers)
-    
-    return train_loader, valid_loader, test_loader  
