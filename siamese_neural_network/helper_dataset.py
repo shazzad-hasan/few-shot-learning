@@ -104,7 +104,7 @@ class nWayOneShotValidSet(Dataset):
                 test_img = self.transform(test_img)
             test_set.append(test_img)
 
-    return main_img, test_set, label 
+        return main_img, test_set, label 
 
 
 
