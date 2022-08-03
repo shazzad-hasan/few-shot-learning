@@ -14,7 +14,7 @@ from PIL import Image
 
 class OmniglotDataset(Dataset):
     
-    def __init__(self, categories, root_dir, data_size, transform=None):
+    def __init__(self, categories, root_dir, data_size, transform=None): 
         self.categories = categories
         self.root_dir = root_dir 
         self.transform = transform
@@ -28,9 +28,9 @@ class OmniglotDataset(Dataset):
         label = np.array([label], dtype=np.float32) 
     
         if idx%2==0:
-            category = random.choice(categories)
+            category = random.choice(self.categories)
             character = random.choice(category[1])
-            img_dir = root_dir + category[0] + "/" + character
+            img_dir = self.root_dir + category[0] + "/" + character
             img1_name = random.choice(os.listdir(img_dir))
             img2_name = random.choice(os.listdir(img_dir))
             img1 = Image.open(img_dir + "/" + img1_name)
@@ -38,12 +38,12 @@ class OmniglotDataset(Dataset):
             label = 1.0
     
         else:
-            category1 = random.choice(categories)
-            category2 = random.choice(categories)
+            category1 = random.choice(self.categories)
+            category2 = random.choice(self.categories)
             character1 = random.choice(category1[1])
             character2 = random.choice(category2[1])
-            img_dir1 = root_dir + category1[0] + "/" + character1
-            img_dir2 = root_dir + category2[0] + "/" + character2 
+            img_dir1 = self.root_dir + category1[0] + "/" + character1
+            img_dir2 = self.root_dir + category2[0] + "/" + character2 
             img1_name = random.choice(os.listdir(img_dir1))
             img2_name = random.choice(os.listdir(img_dir2))
       
