@@ -1,6 +1,6 @@
 import torch 
 
-def test(model, test_loader, device):
+def test(model, test_loader, n_way, device):
   correct = 0
   count = 0
   model.eval()
@@ -18,5 +18,5 @@ def test(model, test_loader, device):
       if pred == target:
         correct += 1
       count += 1
-      if count % 20 == 0:
-        print("Accuracy on n way: {}".format(correct/count))
+      if count % 100 == 0:
+        print("Accuracy on {} way: {}".format(n_way, correct/count))
