@@ -25,7 +25,7 @@ class OmniglotDataset(Dataset):
   
     def __getitem__(self, idx):
         img1, img2, label = None, None, None
-        label = np.array([label], dtype=np.float32) 
+        label = torch.from_numpy(np.array([label], dtype=np.float32))
     
         if idx%2==0:
             category = random.choice(self.categories)
