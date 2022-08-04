@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 
-def show_example(train_loader):
+def show_examples(train_loader):
     for img1, img2, label in train_loader:
         if label[0] == 1.0:
           plt.subplot(1,2,1)
