@@ -18,5 +18,5 @@ def test(model, test_loader, n_way, device):
       if pred == target:
         correct += 1
       count += 1
-      if count % 100 == 0:
+      if count % 20 == 0:
         print("Accuracy on {} way: {}".format(n_way, correct/count))
