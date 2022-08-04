@@ -25,7 +25,6 @@ class OmniglotDataset(Dataset):
   
     def __getitem__(self, idx):
         img1, img2, label = None, None, None
-        label = torch.from_numpy(np.array([label], dtype=np.float32))
     
         if idx%2==0:
             category = random.choice(self.categories)
@@ -57,6 +56,8 @@ class OmniglotDataset(Dataset):
         if self.transform:
             img1 = self.transform(img1)
             img2 = self.transform(img2)
+            
+        label = torch.from_numpy(np.array([label], dtype=np.float32))
   
         return img1, img2, label
 
@@ -83,7 +84,6 @@ class nWayOneShotValidSet(Dataset):
     
         test_set = []
         label = np.random.randint(self.n_way)
-        label = torch.from_numpy(np.array([label], dtype=int))
         for i in range(self.n_way):
             test_img_dir = img_dir 
             test_img_name = ""
@@ -103,5 +103,7 @@ class nWayOneShotValidSet(Dataset):
             if self.transform:
                 test_img = self.transform(test_img)
             test_set.append(test_img)
+            
+        label = torch.from_numpy(np.array([label], dtype=int))
 
         return main_img, test_set, label 
