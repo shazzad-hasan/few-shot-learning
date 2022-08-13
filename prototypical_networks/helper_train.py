@@ -6,6 +6,8 @@ from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 
 CHECKPOINT_PATH = "/content/few-shot-learning/prototypical_networks"
 
+train_on_gpu = torch.cuda.is_available()
+device = torch.device('cuda') if train_on_gpu else torch.device('cpu')
 
 def train(model_class, train_loader, val_loader, **kwargs):
     trainer = pl.Trainer(default_root_dir=os.path.join(CHECKPOINT_PATH, model_class.__name__),
