@@ -9,7 +9,7 @@ CHECKPOINT_PATH = "/content/few-shot-learning/prototypical_networks"
 
 def train(model_class, train_loader, val_loader, **kwargs):
     trainer = pl.Trainer(default_root_dir=os.path.join(CHECKPOINT_PATH, model_class.__name__),
-                         gpus=1 if str(device) == "cuda:0" else 0,
+                         gpus=1 if str(kwargs["device"]) == "cuda:0" else 0,
                          max_epochs=200,
                          callbacks=[ModelCheckpoint(save_weights_only=True, mode="max", monitor="val_acc"),
                                     LearningRateMonitor("epoch")],
