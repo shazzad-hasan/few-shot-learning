@@ -6,7 +6,7 @@ from statistics import mean, stdev
 
 
 @torch.no_grad()
-def test_proto_net(model, dataset, data_feats, k_shot, device):
+def test(model, dataset, data_feats, k_shot):
     """
     Inputs
         model - Pretrained ProtoNet model
