@@ -1,12 +1,13 @@
 import torch 
 import torchvision 
-from torchvision import datasets
 import torchvision.transforms as transforms 
 
+import numpy as np
+import random
 from PIL import Image 
 from collections import defaultdict 
 
-class ImageDataset(Dataset):
+class ImageDataset(object):
 
     def __init__(self, imgs, targets, img_transform=None):
         """
@@ -34,7 +35,7 @@ class ImageDataset(Dataset):
     def __len__(self):
         return self.imgs.shape[0] 
 
-class FewShotBatchSampler(Dataset):
+class FewShotBatchSampler(object):
 
     def __init__(self, dataset_targets, N_way, K_shot, include_query=False, shuffle=True, shuffle_once=False):
         """
